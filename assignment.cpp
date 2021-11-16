@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 using namespace std;
@@ -8,7 +10,7 @@ using namespace std;
 
 // initializing functions
 void pass_by_value(int val[], int N);
-
+void pass_by_address(int* arr, int size);
 
 
 
@@ -16,7 +18,7 @@ int main()
 {
 
 	// initializing valriables
-	int choice, num, arr[99], i, sorted_arr;
+	int choice, num, arr[10], i, sorted_arr;
 
 
 	// Ask user to choose Pass-by-value or Pass-by Reference
@@ -38,6 +40,17 @@ int main()
 	}
 
 
+	// Conditional statement for user's choose
+	if (choice == 1) {
+		pass_by_value(arr, num);
+	}
+
+	else if (choice == 2) {
+		pass_by_address(arr, sizeof(arr) / sizeof(arr[0]));
+
+	}
+	
+	
 	// Before Sorting
 	for (i = 0; i < num; i++) {
 		cout << arr[i] << " ";
@@ -45,16 +58,6 @@ int main()
 	}
 
 	cout << "\n\n========================\n";
-
-
-	// Conditional statement for user's choose
-	if (choice == 1) {
-		pass_by_value(arr, num);
-	}
-	//else if (choice == 2) {
-	//	pass_by_address(&arr, &num);
-
-	//}
 
 
 	// Output value after sort
@@ -106,7 +109,7 @@ void pass_by_value(int arr[], int size)
 
 
 // bubble sort (pass-by-address)
-void pass_by_address(int* arr[], int* size) {
+void pass_by_address(int* arr, int size) {
 
 
 	int i, j;
@@ -115,17 +118,17 @@ void pass_by_address(int* arr[], int* size) {
 
 
 	// looping through the list
-	for (i = 0; i < *size; i++) {
+	for (i = 0; i < size; i++) {
 
 		// (size-i-1) because we don't have to loop through the last part of the array after each loop since the largest number is already at last
-		for (j = 0; j < (*size - i - 1); j++) {
+		for (j = 0; j < (size - i - 1); j++) {
 
-			if (*arr[j] > *arr[j + 1]) {
+			if (arr[j] > arr[j + 1]) {
 
 				// swapping value if the current value is larger than adjacent value
-				int temp = *arr[j];
-				*arr[j] = *arr[j + 1];
-				*arr[j + 1] = temp;
+				int temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
 
 
 
