@@ -5,6 +5,14 @@
 #include <stdlib.h>
 
 
+/*
+TODO: 1) For pass-by-value, we need to pass in the values in array one by one instead of passing the whole array
+	  2) Add input validation (check if the input isdigit())
+	  3) Change the menu (make it looks nicer)
+	  4) Pass-by-address correct buy find a way to assign pointer
+*/
+
+
 using namespace std;
 
 
@@ -26,8 +34,6 @@ int main()
 	cout << "\nPlease choose\n1. Pass-By-Value\n2. Pass-by-Address\nChoice : ";
 	cin >> choice;
 
-
-	// input
 	cout << "enter total number of elements: ";
 	cin >> num;
 	cout << "\n enter " << num << " elements \n";
