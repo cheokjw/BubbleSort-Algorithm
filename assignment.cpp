@@ -62,16 +62,18 @@ int main()
 
 		}
 
-
+		// Pass-by-value
 		if (choice == 1) {
 
 			pass_by_value();
 
 
 		}
+
+		// Pass-by-address
 		else if (choice == 2) {
 
-
+			// Input values and store in array
 			cout << "enter total number of elements: ";
 			cin >> size;
 			cout << "\n enter " << size << " elements \n";
@@ -81,8 +83,10 @@ int main()
 				cin >> arr[i];
 			}
 
+			// For testing addresses purpose
 			test(arr);
 
+			// Function call
 			pass_by_address(arr, size);
 
 			for (i = 0; i < size; i++) {
@@ -90,7 +94,9 @@ int main()
 
 			}
 
+
 		}
+		// Quits Program
 		else if (choice == 3) {
 			cout << "\nThanks for using our program <3\n\n";
 			exit(0);
@@ -129,6 +135,7 @@ void pass_by_address(int *ptr, int n) {
 		// (size-i-1) because we don't have to loop through the last part of the array after each loop since the largest number is already at last
 		for (j = 0; j < (n - i - 1); j++) {
 
+			// *(ptr + value) is the same as arr[value], it refers to the index of the array
 			if (*(ptr +j) > *(ptr + j + 1)) {
 
 				// swapping value if the current value is larger than adjacent value
@@ -145,7 +152,7 @@ void pass_by_address(int *ptr, int n) {
 
 
 
-
+// Testing purposes
 void test(int *ptr) {
 	cout << *(ptr + 3);
 }
