@@ -19,15 +19,18 @@ using namespace std;
 // initializing functions
 void pass_by_value(int val[], int N);
 void pass_by_address(int* arr, int size);
+void menu();
 
 
 
 int main()
 {
 
+
 	// initializing valriables
 	int choice, num, arr[10], i, sorted_arr;
 
+	menu();
 
 	// Ask user to choose Pass-by-value or Pass-by Reference
 	cout << "Welcome to our Bubble Sort Program :)";
@@ -75,6 +78,44 @@ int main()
 
 	return 0;
 }
+
+
+
+
+
+// Starting menu function
+void menu() {
+
+	while (true) {
+
+		int choice;
+		cout << setw(50) << setfill('*') << endl;
+		cout << "\n*" << setfill(' ') << right << setw(48) << "*\n";
+		cout << "*" << setfill(' ') << right << setw(39) << "Welcome to the Bubble Sort Program" << setw(9) << "*\n";
+		cout << "*" << setfill(' ') << right << setw(48) << "*\n";
+		cout << setw(49) << setfill('*') << "\n";
+
+		cout << "\t1. Pass-by-value method" << endl;
+		cout << "\t2. Pass-by-address method" << endl;
+		cout << "\t3. Exit program" << endl;
+
+		cout << "\nEnter your choice : ";
+
+		cin >> choice;
+
+
+		if (choice == 1) {
+			pass_by_value();
+		}
+		else if (choice == 2) {
+			pass_by_address();
+		}
+		else if (choice == 3) {
+			exit(0);
+		}
+	}
+}
+
 
 
 
@@ -143,8 +184,3 @@ void pass_by_address(int* arr, int size) {
 	}
 
 }
-
-
-
-
-
