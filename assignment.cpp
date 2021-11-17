@@ -17,78 +17,22 @@ using namespace std;
 
 
 // initializing functions
-void pass_by_value(int val[], int N);
-void pass_by_address(int* arr, int size);
-void menu();
-
+void pass_by_value();
+void pass_by_address(int* ptr, int n);
+void test(int* ptr);
 
 
 int main()
 {
-
-
-	// initializing valriables
-	int choice, num, arr[10], i, sorted_arr;
-
-	menu();
-
-	// Ask user to choose Pass-by-value or Pass-by Reference
-	cout << "Welcome to our Bubble Sort Program :)";
-	cout << "\nPlease choose\n1. Pass-By-Value\n2. Pass-by-Address\nChoice : ";
-	cin >> choice;
-
-	cout << "enter total number of elements: ";
-	cin >> num;
-	cout << "\n enter " << num << " elements \n";
-
-
-	// letting the user to input all of the values into an array
-	for (i = 0; i < num; i++) {
-		cout << "number " << i + 1 << " : ";
-		cin >> arr[i];
-	}
-
-
-	// Conditional statement for user's choose
-	if (choice == 1) {
-		pass_by_value(arr, num);
-	}
-
-	else if (choice == 2) {
-		pass_by_address(arr, sizeof(arr) / sizeof(arr[0]));
-
-	}
-	
-	
-	// Before Sorting
-	for (i = 0; i < num; i++) {
-		cout << arr[i] << " ";
-
-	}
-
-	cout << "\n\n========================\n";
-
-
-	// Output value after sort
-	for (i = 0; i < num; i++) {
-		cout << arr[i] << " ";
-
-	}
-
-
-	return 0;
-}
+	// Initializing variables
+	int choice, i, arr[10], size;
 
 
 
-
-
-// Starting menu function
-void menu() {
-
+	// Allow user to keep using the program until they close it manually
 	while (true) {
 
-		int choice;
+
 		cout << setw(50) << setfill('*') << endl;
 		cout << "\n*" << setfill(' ') << right << setw(48) << "*\n";
 		cout << "*" << setfill(' ') << right << setw(39) << "Welcome to the Bubble Sort Program" << setw(9) << "*\n";
@@ -104,59 +48,74 @@ void menu() {
 		cin >> choice;
 
 
+		// Input validation
+		while (choice != 1 && choice != 2 && choice != 3) {
+			cout << endl;
+			cout << "\nInvalid Input! Please try again";
+			cout << "\n\t1. Pass-by-value method" << endl;
+			cout << "\t2. Pass-by-address method" << endl;
+			cout << "\t3. Exit program" << endl;
+
+			cout << "\nEnter your choice : ";
+
+			cin >> choice;
+
+		}
+
+
 		if (choice == 1) {
+
 			pass_by_value();
+
+
 		}
 		else if (choice == 2) {
-			pass_by_address();
+
+
+			cout << "enter total number of elements: ";
+			cin >> size;
+			cout << "\n enter " << size << " elements \n";
+
+			for (i = 0; i <= size - 1; i++) {
+				cout << "number " << i + 1 << " : ";
+				cin >> arr[i];
+			}
+
+			test(arr);
+
+			pass_by_address(arr, size);
+
+			for (i = 0; i < size; i++) {
+				cout << arr[i] << " ";
+
+			}
+
 		}
 		else if (choice == 3) {
+			cout << "\nThanks for using our program <3\n\n";
 			exit(0);
 		}
 	}
+
+
+	return 0;
 }
 
 
+// bubble sort (pass_by_value)
+void pass_by_value() {
+
+	int num, size;
 
 
 
-
-
-
-// bubble sort (pass-by-value function)
-void pass_by_value(int arr[], int size)
-{
-
-
-	int i, j;
-
-	cout << "\nsorting array using bubble sort....\n";
-
-
-	// looping through the list
-	for (i = 0; i < size; i++) {
-
-		// (size-i-1) because we don't have to loop through the last part of the array after each loop since the largest number is already at last
-		for (j = 0; j < (size - i - 1); j++) {
-
-			if (arr[j] > arr[j + 1]) {
-
-				// swapping value if the current value is larger than adjacent value
-				int temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-
-
-
-			}
-		}
-	}
 }
+
 
 
 
 // bubble sort (pass-by-address)
-void pass_by_address(int* arr, int size) {
+void pass_by_address(int *ptr, int n) {
 
 
 	int i, j;
@@ -165,22 +124,28 @@ void pass_by_address(int* arr, int size) {
 
 
 	// looping through the list
-	for (i = 0; i < size; i++) {
+	for (i = 0; i < n; i++) {
 
 		// (size-i-1) because we don't have to loop through the last part of the array after each loop since the largest number is already at last
-		for (j = 0; j < (size - i - 1); j++) {
+		for (j = 0; j < (n - i - 1); j++) {
 
-			if (arr[j] > arr[j + 1]) {
+			if (*(ptr +j) > *(ptr + j + 1)) {
 
 				// swapping value if the current value is larger than adjacent value
-				int temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-
-
+				int temp = *(ptr + j);
+				*(ptr + j) = *(ptr + j + 1);
+				*(ptr + j + 1) = temp;
 
 			}
 		}
 	}
 
+}
+
+
+
+
+
+void test(int *ptr) {
+	cout << *(ptr + 3);
 }
