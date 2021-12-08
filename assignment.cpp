@@ -1,17 +1,10 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <iomanip>
 #include <cctype>
 
 using namespace std;
-
-
-/*
-TODO: 1) For pass-by-value, we need to pass in the values in array one by one instead of passing the whole array
-	  2) Add input validation (check if the input isdigit())
-	  3) Change the menu (make it looks nicer)
-	  4) Pass-by-address correct buy find a way to assign pointer
-*/
 
 
 // initializing functions
@@ -28,11 +21,10 @@ int main()
 {
 	// Initializing variables
 	const int size = 10;
-	int i,j,original, arr[size], des_arr[size];
-	string choice, order_choice;
-	char cont;
-	bool cond = true;
-
+	const bool cond = true;
+	int i, j, original, arr[size], des_arr[size];
+	string choice, order_choice, cont;
+	
 	// Allow user to keep using the program until they close it manually
 	while (cond) {
 		// Menu function
@@ -41,19 +33,26 @@ int main()
 		getline(cin >> ws, choice);
 
 
+		// Check if input is number and contains white space
+		while (isNumber(choice) == false) {
+
+			cout << "You have entered a non-integer! Please try again\nEnter your choice : ";
+			getline(cin >> ws, choice);
+		}
+
 		// Input validation
-		while (isNumber(choice) == false && choice.length() > 1) {
+		while (choice != "1" && choice != "2" && choice != "3") {
 
-			while (choice != "1" && choice != "2" && choice != "3") {
+			cout << "Please Enter 1, 2 or 3 :3";
+			cout << "\nEnter your choice : ";
+			getline(cin >> ws, choice);
 
-				cout << "\nInvalid Input! Please try again";
-				cout << "\nHints: Input number without spacing :D";
-				cout << "\nEnter your choice : ";
+			while (isNumber(choice) == false) {
+				cout << "You have entered a non-integer! Please try again\nEnter your choice : ";
 				getline(cin >> ws, choice);
 			}
-
 		}
-		
+
 
 		// Pass-by-value
 		if (choice == "1") {
@@ -65,42 +64,12 @@ int main()
 				for (j = 0;j < size - i - 1;j++) { // 3 1
 					if (arr[j] > arr[j + 1]) {
 						original = arr[j];
-						arr[j] = pass_by_value(arr[j], arr[j + 1]);
-						arr[j + 1] = original;
+						arr[j] = pass_by_value(arr[j], arr[j + 1]); // smaller
+						arr[j + 1] = original; // bigger
 					}
 				}
 			}
 
-			sort_order();
-			getline(cin >> ws, order_choice);
-
-			while (order_choice != "1" && order_choice != "2") {
-				cout << "\nYou have entered a non-integer! Please try again\nEnter your choice : \n";
-				getline(cin >> ws, order_choice);
-			}
-
-			// Ascending Sort
-			if (order_choice == "1") {
-				cout << "\nsorting array using bubble sort....\n\n";
-
-				for (i = 0; i < size; i++) {
-					cout << arr[i] << " ";
-				}
-
-			}
-			// Descending Sort
-			else {
-				cout << "\nsorting array using bubble sort....\n\n";
-
-				for (i = 0; i < size; i++) {
-					des_arr[i] = arr[size - 1 - i];
-					cout << des_arr[i] << " ";
-				}
-
-			}
-				
-			
-			
 		}
 
 		// Pass-by-address
@@ -111,32 +80,8 @@ int main()
 
 			// Function call
 			pass_by_address(arr, size);
-			sort_order();
-			getline(cin >> ws, order_choice);
 
-			while (order_choice != "1" && order_choice != "2") {
-				cout << "\nYou have entered a non-integer! Please try again\nEnter your choice : \n";
-				getline(cin >> ws, order_choice);
-			}
-
-			// Ascending Sort
-			if (order_choice == "1") {
-				cout << "\nsorting array using bubble sort....\n\n";
-				for (i = 0; i < size; i++) {
-					cout << arr[i] << " ";
-				}
-			}
-			// Descending Sort
-			else {
-				cout << "\nsorting array using bubble sort....\n\n";
-				for (i = 0; i < size; i++) {
-					des_arr[i] = arr[size - 1 - i];
-					cout << des_arr[i] << " ";
-				}
-			}
-			
 		}
-
 
 		// Quits Program
 		else
@@ -145,26 +90,53 @@ int main()
 			exit(0);
 		}
 
+		// Ascending/ Descending Input
+		sort_order();
+		getline(cin >> ws, order_choice);
+
+		// Input Validation
+		while (order_choice != "1" && order_choice != "2") {
+			cout << "Not 1 or 2! Please try again\nEnter your choice : ";
+			getline(cin >> ws, order_choice);
+		}
+
+		// Ascending Sort
+		if (order_choice == "1") {
+			cout << "\nsorting array using bubble sort....\n\n";
+
+			for (i = 0; i < size; i++) {
+				cout << arr[i] << " ";
+			}
+		}
+
+		// Descending Sort
+		else {
+			cout << "\nsorting array using bubble sort....\n\n";
+
+			for (i = 0; i < size; i++) {
+				des_arr[i] = arr[size - 1 - i];
+				cout << des_arr[i] << " ";
+			}
+		}
 
 		// Prompts the user for continuing
 		cout << "\n\nWish to continue (Y/N) ? ";
-		cin >> cont;
-		cont = (char)toupper(cont);
-		
-		while (cont != 'Y' && cont != 'N') {
+		getline(cin >> ws, cont);
+
+		// Input validation
+		while (cont != "Y" && cont != "N" && cont != "y" && cont != "n") {
 			cout << "Please enter Y or N : ";
-			cin >> cont;
-			cont = (char)toupper(cont);
+			getline(cin >> ws, cont);
 		}
 
-		if (cont == 'Y')
+		if (cont == "Y" || cont == "y")
 			system("cls");
 		else {
 			cout << "\nThanks for using our program <3\n\n";
 			exit(0);
 		}
-			
 	}
+
 	return 0;
 }
 
@@ -189,29 +161,30 @@ void menu() {
 // Array input
 void input(int* myarr, int arrSize) {
 
-	string toString;
+	string value;
+
 	cout << "\nEnter " << arrSize << " elements \n";
 
 	for (int i = 0; i < arrSize; i++) {
+		cout << "Number " << i + 1 << " : ";
+		getline(cin >> ws, value);
 
-		cout << "number " << i + 1 << " : ";
+		// Check if input is string
+		while (isNumber(value) == false) {
 
-		do {
-			// The following line accepts input from the keyboard into
-			// variable input_var.
-			// cin returns false if an input operation fails, that is, if
-			// something other than an int (the type of input_var) is entered.
-			if (!(cin >> myarr[i])) {
-				cout << "Please enter numbers only." << endl;
-				cin.clear();
-				cin.ignore(10000, '\n');
+			// check if user input negative
+			if (value[0] == '-') {
+				cout << "Please enter positive number! :p\n";
 			}
-		} while (isdigit(myarr[i])); {
+			else {
+				cout << "Please enter a digit! :p\n";
+			}
 
+			cout << "Number " << i + 1 << " : ";
+			getline(cin >> ws, value);
 		}
+		myarr[i] = stoi(value);
 	}
-
-	
 }
 
 // Validation function
@@ -219,25 +192,25 @@ bool isNumber(string s)
 {
 	// Returns false if string contains character and whitespace
 	for (int i = 0; i < s.length(); i++) {
-		if (isdigit(s[i]) == false || isspace(s[i] == true)) {
+		if (isdigit(s[i]) == false || isspace(s[i]) == true) {
 			return false;
 		}
-
-		return true;
 	}
+	return true;
 }
 
 // bubble sort (pass_by_value)
-int pass_by_value(int a, int b) { 
+int pass_by_value(int a, int b) {
 
 	int temp;
 	temp = a;
 	a = b;
 	b = temp;
-	return a;
+	return a; // return the smaller value
 
 }
 
+// Sort_order menu
 void sort_order() {
 
 	cout << setw(31) << setfill('*') << endl;
